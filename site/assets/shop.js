@@ -1,5 +1,4 @@
 
-const PASSWORD = "vaperis123";
 const cart = JSON.parse(localStorage.getItem('cart') || '{}');
 
 function checkAccess() {
@@ -12,7 +11,7 @@ function checkAccess() {
 
 function updateCartBadge() {
   let items = 0;
-  for (const k in cart) { items += cart[k].qty; }
+  for (const k in cart) items += cart[k].qty;
   const el = document.getElementById('cart-count');
   if (el) el.textContent = items;
   localStorage.setItem('cart', JSON.stringify(cart));
@@ -21,7 +20,6 @@ function updateCartBadge() {
 document.addEventListener('DOMContentLoaded', () => {
   checkAccess();
   updateCartBadge();
-
   document.addEventListener('click', e => {
     if (e.target.classList.contains('add-to-cart')) {
       const card = e.target.closest('.product-card');
