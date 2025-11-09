@@ -5,6 +5,17 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <title>Produktų katalogas</title>
 <link rel='stylesheet' href='assets/style.css'>
+
+<script>
+const pw = "vape123";
+const remember = true;
+if(!remember || localStorage.getItem('pw_ok')!=="true"){
+  let entered = prompt("Įveskite slaptažodį norėdami patekti:");
+  if(entered===pw){ if(remember) localStorage.setItem('pw_ok',"true"); }
+  else{ alert("Neteisingas slaptažodis!"); window.location='https://google.com'; }
+}
+</script>
+
 </head>
 <body>
 <header>
@@ -22,9 +33,9 @@
 <div class='container'>
   
     <div class='hero'>
-      <h1>Atrask mūsų produktų asortimentą</h1>
-      <p>Rinkis iš plataus kvapų, aromatų ir įrangos pasirinkimo. Kiekvienas ras savo mėgstamą!</p>
-      <a href='-ky-ciai.html'>Naršyti produktus</a>
+      <h1>Atrask mūsų produktus</h1>
+      <p>Rinkis iš plataus kvapų ir įrangos pasirinkimo.</p>
+      <a href='aromo-.html'>Peržiūrėti</a>
     </div>
     
   <div class='footer'>© Visos teisės saugomos</div>

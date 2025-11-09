@@ -5,6 +5,17 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <title>Produktų katalogas</title>
 <link rel='stylesheet' href='assets/style.css'>
+
+<script>
+const pw = "vape123";
+const remember = true;
+if(!remember || localStorage.getItem('pw_ok')!=="true"){
+  let entered = prompt("Įveskite slaptažodį norėdami patekti:");
+  if(entered===pw){ if(remember) localStorage.setItem('pw_ok',"true"); }
+  else{ alert("Neteisingas slaptažodis!"); window.location='https://google.com'; }
+}
+</script>
+
 </head>
 <body>
 <header>
@@ -21,10 +32,10 @@
 </header>
 <div class='container'>
   <h2>Shotai</h2><div class='grid'>
-    <div class="product-card" data-title="Revolute - Nic Shotas 50/50 20mg" data-price="2.49" data-bulk="" data-img="https://images.weserv.nl/?url=https://vvaping.com/364/revolute-nic-shotas-5050-20mg.jpg">
+    <div class="product-card" data-title="Revolute - Nic Shotas 50/50 20mg" data-price="2" data-bulk="" data-img="https://images.weserv.nl/?url=https://vvaping.com/364/revolute-nic-shotas-5050-20mg.jpg">
       <div class="thumb"><img src="https://images.weserv.nl/?url=https://vvaping.com/364/revolute-nic-shotas-5050-20mg.jpg" alt="Revolute - Nic Shotas 50/50 20mg"></div>
       <h3 class="title">Revolute - Nic Shotas 50/50 20mg</h3>
-      <p class="price">Kaina: <strong>2.49 €</strong></p>
+      <p class="price">Kaina: <strong>2 €</strong></p>
       
       <div class="actions">
         <input type="number" min="1" value="1" class="qty">
@@ -32,10 +43,10 @@
       </div>
     </div>
     
-    <div class="product-card" data-title="Revolute - Nic Shotas 30/70 20mg" data-price="2.49" data-bulk="" data-img="https://images.weserv.nl/?url=https://vvaping.com/362/revolute-nic-shotas-3070-20mg.jpg">
+    <div class="product-card" data-title="Revolute - Nic Shotas 30/70 20mg" data-price="2" data-bulk="" data-img="https://images.weserv.nl/?url=https://vvaping.com/362/revolute-nic-shotas-3070-20mg.jpg">
       <div class="thumb"><img src="https://images.weserv.nl/?url=https://vvaping.com/362/revolute-nic-shotas-3070-20mg.jpg" alt="Revolute - Nic Shotas 30/70 20mg"></div>
       <h3 class="title">Revolute - Nic Shotas 30/70 20mg</h3>
-      <p class="price">Kaina: <strong>2.49 €</strong></p>
+      <p class="price">Kaina: <strong>2 €</strong></p>
       
       <div class="actions">
         <input type="number" min="1" value="1" class="qty">
@@ -43,10 +54,10 @@
       </div>
     </div>
     
-    <div class="product-card" data-title="Revolute - NS shotas 50/50 20mg" data-price="2.99" data-bulk="" data-img="https://images.weserv.nl/?url=https://vvaping.com/360/revolute-ns-shotas-5050-20mg.jpg">
+    <div class="product-card" data-title="Revolute - NS shotas 50/50 20mg" data-price="2" data-bulk="" data-img="https://images.weserv.nl/?url=https://vvaping.com/360/revolute-ns-shotas-5050-20mg.jpg">
       <div class="thumb"><img src="https://images.weserv.nl/?url=https://vvaping.com/360/revolute-ns-shotas-5050-20mg.jpg" alt="Revolute - NS shotas 50/50 20mg"></div>
       <h3 class="title">Revolute - NS shotas 50/50 20mg</h3>
-      <p class="price">Kaina: <strong>2.99 €</strong></p>
+      <p class="price">Kaina: <strong>2 €</strong></p>
       
       <div class="actions">
         <input type="number" min="1" value="1" class="qty">

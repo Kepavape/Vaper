@@ -5,6 +5,17 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <title>Produktų katalogas</title>
 <link rel='stylesheet' href='assets/style.css'>
+
+<script>
+const pw = "vape123";
+const remember = true;
+if(!remember || localStorage.getItem('pw_ok')!=="true"){
+  let entered = prompt("Įveskite slaptažodį norėdami patekti:");
+  if(entered===pw){ if(remember) localStorage.setItem('pw_ok',"true"); }
+  else{ alert("Neteisingas slaptažodis!"); window.location='https://google.com'; }
+}
+</script>
+
 </head>
 <body>
 <header>
