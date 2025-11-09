@@ -24,6 +24,7 @@
     <h2>Krepšelis</h2>
     <div id='cart-items' class='cart-grid'></div>
     <div class='total'>Iš viso: <span id='total'>0.00 €</span></div>
+    <div class='back-btn'><a href='index.html'>← Tęsti apsipirkimą</a></div>
     <script>
 const cart=JSON.parse(localStorage.getItem('cart')||'{}');
 const cont=document.getElementById('cart-items');
@@ -44,7 +45,6 @@ function render(){
           <h3>${name}</h3>
           <p>Kaina: <strong>${final.toFixed(2)} €</strong></p>
           <div class='cart-actions'>
-            <label>Kiekis:</label>
             <input type='number' value='${qty}' min='1' data-name='${name}' class='qty'>
             <button class='remove' data-name='${name}'>✕</button>
           </div>
@@ -70,12 +70,6 @@ cont.addEventListener('click',e=>{
   }
 });
 render();
-// Užtikrinam hamburger veikimą
-document.addEventListener('click',e=>{
-  if(e.target.id==='hamburger'){
-    document.getElementById('nav').classList.toggle('open');
-  }
-});
     </script>
     
   <div class='footer'>© Visos teisės saugomos</div>

@@ -1,17 +1,4 @@
 
-// Slaptažodžio patikrinimas
-const PASSWORD = "vape123";
-const REMEMBER = false;
-if(!REMEMBER || !sessionStorage.getItem('access_granted')){
-  let p = prompt('Įveskite slaptažodį:');
-  if(p !== PASSWORD) {
-    alert('Neteisingas slaptažodis!');
-    window.location.href = 'https://google.com';
-  } else {
-    sessionStorage.setItem('access_granted','1');
-  }
-}
-
 const cart = JSON.parse(localStorage.getItem('cart')||'{}');
 function updateCartBadge(){
   let items=0;
@@ -32,6 +19,8 @@ document.addEventListener('click',e=>{
     cart[title].qty+=qty;
     updateCartBadge();
   }
-  if(e.target.id==='hamburger'){document.getElementById('nav').classList.toggle('open');}
+  if(e.target.id==='hamburger'){
+    document.getElementById('nav').classList.toggle('open');
+  }
 });
 updateCartBadge();
