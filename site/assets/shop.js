@@ -2,16 +2,11 @@
 const PASSWORD = "vaperis123";
 const cart = JSON.parse(localStorage.getItem('cart') || '{}');
 
-function requirePassword() {
-  if (localStorage.getItem('access_granted') === 'true') return true;
-  const input = prompt('Įveskite slaptažodį:');
-  if (input === PASSWORD) {
-    localStorage.setItem('access_granted', 'true');
-    return true;
-  } else {
-    alert('Neteisingas slaptažodis!');
+function checkAccess() {
+  if (localStorage.getItem('access_granted') !== 'true') {
     window.location.href = 'password.html';
-    return false;
+  } else {
+    document.body.style.display = 'block';
   }
 }
 
@@ -24,8 +19,7 @@ function updateCartBadge() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  if (!requirePassword()) return;
-  document.body.style.display = 'block';
+  checkAccess();
   updateCartBadge();
 
   document.addEventListener('click', e => {
