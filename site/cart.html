@@ -5,7 +5,7 @@
 <title>Produktų katalogas</title>
 <link rel='stylesheet' href='assets/style.css'>
 </head>
-<body style='display:none'>
+<body style='display:block'>
 <header>
   <div class='topbar'>
     <div class='left'><div class='hamburger' id='hamburger'>☰</div><div class='brand'>Produktų katalogas</div></div>
@@ -14,24 +14,33 @@
   <nav class='nav' id='nav'><a href="index.html">Pradžia</a> <a href="aromo-.html">Aromos</a> <a href="baze-.html">Bazės</a> <a href="buteliukai.html">Buteliukai</a> <a href="coilaiirkap-ule-.html">Coilai ir kapsulės</a> <a href="-hotai.html">Shotai</a> <a href="-ky-ciai.html">Skysčiai</a> <a href="irangairrinkiniai.html">Įranga ir rinkiniai</a></nav>
 </header>
 <div class='container'>
-    <h2>Krepšelis</h2><div id='cart-items'></div>
-    <div class='total'>Iš viso: <span id='total'>0.00 €</span></div>
-    <div class='back-btn'><a href='index.html'>← Tęsti apsipirkimą</a></div>
-    <script>
-const cart = JSON.parse(localStorage.getItem('cart') || '{}');
-const c = document.getElementById('cart-items');
-function render() {
- c.innerHTML = ''; let t = 0;
- for (const [n, i] of Object.entries(cart)) {
-  const q = i.qty; const p = parseFloat(i.price) || 0; const b = parseFloat(i.bulk) || 0;
-  const f = (b && q >= 10) ? b : p; const s = f * q; t += s;
-  c.innerHTML += `<div class='cart-item'><img src='${i.img}' width='80'><div><h3>${n}</h3><p>${f} € × ${q}</p></div><strong>${s.toFixed(2)} €</strong></div>`;
- }
- document.getElementById('total').textContent = t.toFixed(2) + ' €';
-}
-render();
-    </script>
-    <div class='footer'>© Visos teisės saugomos</div></div>
+<h2>Krepšelis</h2>
+<div id='cart-items'></div>
+<div class='total'>Iš viso: <span id='total'>0.00 €</span></div>
+<div class='clear-btn'><button id='clear'>Išvalyti krepšelį</button></div>
+<div class='back-btn'><a href='index.html'>← Tęsti apsipirkimą</a></div>
+<script>
+(function() {
+  if (localStorage.getItem('access_granted') !== 'true') {
+    window.location.href = 'password.html';
+    return;
+  }
+  const cart = JSON.parse(localStorage.getItem('cart') || '{}');
+  const c = document.getElementById('cart-items');
+  let t = 0;
+  for (const [n, i] of Object.entries(cart)) {
+    const q = i.qty; const p = parseFloat(i.price) || 0; const b = parseFloat(i.bulk) || 0;
+    const f = (b && q >= 10) ? b : p; const s = f * q; t += s;
+    c.innerHTML += `<div class='cart-item'><img src='${i.img}' width='80'><div><h3>${n}</h3><p>${f} € × ${q}</p></div><strong>${s.toFixed(2)} €</strong></div>`;
+  }
+  document.getElementById('total').textContent = t.toFixed(2) + ' €';
+  document.getElementById('clear').addEventListener('click', () => {{
+    localStorage.removeItem('cart');
+    location.reload();
+  }});
+})();
+</script>
+<div class='footer'>© Visos teisės saugomos</div></div>
 <script src='assets/shop.js'></script>
 </body>
 </html>

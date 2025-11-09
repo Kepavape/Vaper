@@ -26,4 +26,6 @@ header{position:sticky;top:0;z-index:100;background:#0b0b10;border-bottom:1px so
 .total{margin-top:20px;font-size:18px;font-weight:600;text-align:right}
 .back-btn{margin-top:20px;text-align:left}
 .back-btn a{color:var(--accent);text-decoration:none}
+.clear-btn{margin-top:20px;text-align:right}
+.clear-btn button{padding:8px 12px;background:#ff7a7a;border:none;border-radius:8px;color:white;cursor:pointer}
 @media(max-width:768px){.hamburger{display:block}.nav{display:none;flex-direction:column}.nav.open{display:flex}}
