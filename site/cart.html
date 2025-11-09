@@ -28,16 +28,29 @@
   const cart = JSON.parse(localStorage.getItem('cart') || '{}');
   const c = document.getElementById('cart-items');
   let t = 0;
-  for (const [n, i] of Object.entries(cart)) {
-    const q = i.qty; const p = parseFloat(i.price) || 0; const b = parseFloat(i.bulk) || 0;
-    const f = (b && q >= 10) ? b : p; const s = f * q; t += s;
-    c.innerHTML += `<div class='cart-item'><img src='${i.img}' width='80'><div><h3>${n}</h3><p>${f} € × ${q}</p></div><strong>${s.toFixed(2)} €</strong></div>`;
+  function render() {
+    c.innerHTML = ''; t = 0;
+    for (const [n, i] of Object.entries(cart)) {
+      const q = i.qty; const p = parseFloat(i.price) || 0; const b = parseFloat(i.bulk) || 0;
+      const f = (b && q >= 10) ? b : p; const s = f * q; t += s;
+      c.innerHTML += `<div class='cart-item'><img src='${i.img}' width='80'><div><h3>${n}</h3><p>${f} € × <input type='number' min='1' value='${q}' data-item='${n}'></p></div><strong>${s.toFixed(2)} €</strong></div>`;
+    }
+    document.getElementById('total').textContent = t.toFixed(2) + ' €';
   }
-  document.getElementById('total').textContent = t.toFixed(2) + ' €';
-  document.getElementById('clear').addEventListener('click', () => {{
+  render();
+  c.addEventListener('change', e => {
+    if (e.target.matches('input[type=number]')) {
+      const name = e.target.dataset.item;
+      const qty = parseInt(e.target.value) || 1;
+      cart[name].qty = qty;
+      localStorage.setItem('cart', JSON.stringify(cart));
+      render();
+    }
+  });
+  document.getElementById('clear').addEventListener('click', () => {
     localStorage.removeItem('cart');
     location.reload();
-  }});
+  });
 })();
 </script>
 <div class='footer'>© Visos teisės saugomos</div></div>
