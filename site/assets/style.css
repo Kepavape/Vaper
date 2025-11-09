@@ -22,6 +22,7 @@ header{position:sticky;top:0;z-index:50;background:#0b0b10;border-bottom:1px sol
 .price{color:#d1d8ff}
 .bulk{color:#8b90a5;font-size:14px;margin-top:4px}
 .actions{margin-top:10px;display:flex;gap:8px;align-items:center}
+.actions label{color:#e9ecf1;font-size:14px}
 .actions input{width:60px;padding:4px;background:#0f1220;border:1px solid #27304f;color:#fff;border-radius:8px}
 .actions button{padding:6px 10px;background:var(--accent);border:none;border-radius:8px;color:#fff;cursor:pointer}
 .actions button:hover{opacity:.8}
@@ -36,6 +37,7 @@ header{position:sticky;top:0;z-index:50;background:#0b0b10;border-bottom:1px sol
 .cart-info{flex:1;min-width:200px}
 .cart-info h3{font-size:16px;margin:0 0 6px 0}
 .cart-actions{display:flex;align-items:center;gap:8px}
+.cart-actions label{color:#e9ecf1;font-size:14px}
 .cart-actions input{width:60px;padding:4px;background:#0f1220;border:1px solid #27304f;color:#fff;border-radius:8px}
 .cart-sum{font-size:16px;min-width:80px;text-align:right}
 .total{text-align:right;margin-top:16px;font-size:18px;font-weight:600}

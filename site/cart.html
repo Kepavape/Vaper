@@ -5,17 +5,6 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <title>Produktų katalogas</title>
 <link rel='stylesheet' href='assets/style.css'>
-
-<script>
-const pw = "vape123";
-const remember = true;
-if(!remember || localStorage.getItem('pw_ok')!=="true"){
-  let entered = prompt("Įveskite slaptažodį norėdami patekti:");
-  if(entered===pw){ if(remember) localStorage.setItem('pw_ok',"true"); }
-  else{ alert("Neteisingas slaptažodis!"); window.location='https://google.com'; }
-}
-</script>
-
 </head>
 <body>
 <header>
@@ -55,6 +44,7 @@ function render(){
           <h3>${name}</h3>
           <p>Kaina: <strong>${final.toFixed(2)} €</strong></p>
           <div class='cart-actions'>
+            <label>Kiekis:</label>
             <input type='number' value='${qty}' min='1' data-name='${name}' class='qty'>
             <button class='remove' data-name='${name}'>✕</button>
           </div>
@@ -80,6 +70,12 @@ cont.addEventListener('click',e=>{
   }
 });
 render();
+// Užtikrinam hamburger veikimą
+document.addEventListener('click',e=>{
+  if(e.target.id==='hamburger'){
+    document.getElementById('nav').classList.toggle('open');
+  }
+});
     </script>
     
   <div class='footer'>© Visos teisės saugomos</div>
