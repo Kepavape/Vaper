@@ -23,21 +23,41 @@
   <input id='email' type='email' placeholder='el. paštas' required>
   <label>Būdas</label>
   <select id='method'><option>Atsiėmimas</option><option>Pristatymas</option></select>
-  <label>Adresas / vieta</label><input id='address' placeholder='Omniva / adresas'>
-  <label>Data</label><input id='date' type='date' min='2025-11-11' required>
+  <div id='address-wrap' style='display:none'><label>Adresas</label><input id='address' placeholder='Gatvė, miestas'></div>
+  <label>Data</label><input id='date' type='date' min='2025-11-12' required>
   <label>Komentaras</label><textarea id='comment' placeholder='Papildoma info'></textarea>
   <button type='submit'>Pateikti užsakymą</button>
 </form>
 <script>
-(function(){
-const c=JSON.parse(localStorage.getItem('cart')||'{}'),el=document.getElementById('cart-items'),tot=document.getElementById('total');
-function render(){el.innerHTML='';let t=0;for(const[n,i]of Object.entries(c)){const q=i.qty,p=parseFloat(i.price)||0,b=parseFloat(i.bulk)||0,f=(b&&q>=10)?b:p,s=f*q;t+=s;el.innerHTML+=`<div>${n} — ${q}vnt × ${f}€ = ${s.toFixed(2)}€</div>`;}tot.textContent=t.toFixed(2)+' €';}render();
+(function() {
+const c = JSON.parse(localStorage.getItem('cart')||'{}');
+const el = document.getElementById('cart-items');
+const tot = document.getElementById('total');
+function render() {
+ el.innerHTML = ''; let t = 0;
+ for (const [n,i] of Object.entries(c)) {
+  const q=i.qty,p=parseFloat(i.price)||0,b=parseFloat(i.bulk)||0,f=(b&&q>=10)?b:p,s=f*q;t+=s;
+  el.innerHTML += `<div class='cart-item'><img src='${i.img||""}'><div class='details'><h4>${n}</h4><p>${f}€ × <input type='number' min='1' value='${q}' data-item='${n}'> = <strong>${s.toFixed(2)}€</strong></p></div></div>`;
+ }
+ tot.textContent = t.toFixed(2) + ' €';
+}
+render();
+document.getElementById('method').addEventListener('change',e=>{
+ document.getElementById('address-wrap').style.display = e.target.value==='Pristatymas' ? 'block' : 'none';
+});
 document.getElementById('order-form').addEventListener('submit',e=>{
-e.preventDefault();
-if(Object.keys(c).length==0){alert('Krepšelis tuščias');return;}
-const order={time:new Date().toLocaleString(),name:name.value,email:email.value,method:method.value,address:address.value,date:date.value,comment:comment.value,items:c,total:tot.textContent};
-const orders=JSON.parse(localStorage.getItem('orders')||'[]');orders.push(order);localStorage.setItem('orders',JSON.stringify(orders));
-localStorage.removeItem('cart');alert('✅ Užsakymas pateiktas!');location.href='index.html';
+ e.preventDefault();
+ if(Object.keys(c).length==0) return alert('Krepšelis tuščias');
+ const o={time:new Date().toLocaleString(),name:name.value,email:email.value,method:method.value,address:address.value,date:date.value,comment:comment.value,items:c,total:tot.textContent};
+ const orders=JSON.parse(localStorage.getItem('orders')||'[]');orders.push(o);
+ localStorage.setItem('orders',JSON.stringify(orders));
+ localStorage.removeItem('cart');alert('✅ Užsakymas pateiktas!');location.href='index.html';
+});
+el.addEventListener('change',e=>{
+ if(e.target.matches('input[type=number]')) {
+  const it=e.target.dataset.item;const qty=parseInt(e.target.value)||1;
+  c[it].qty=qty;localStorage.setItem('cart',JSON.stringify(c));render();
+ }
 });
 })();
 </script>

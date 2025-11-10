@@ -1,0 +1,42 @@
+
+<html><head><meta charset='utf-8'><title>Užsakymai</title>
+<link rel='stylesheet' href='assets/style.css'></head>
+<body style='background:#0b0b10;color:white;font-family:Inter,Arial;padding:20px;display:none'>
+<h2>Užsakymai</h2><div id='list'></div>
+<button id='export'>Eksportuoti CSV</button><button id='clear'>Išvalyti viską</button>
+<script>
+if(localStorage.getItem('admin_access')!=='true'){
+ const pw=prompt('Admin slaptažodis:');
+ if(pw==='kepashopadmin123') localStorage.setItem('admin_access','true');
+ else location.href='index.html';
+}
+document.body.style.display='block';
+const data=JSON.parse(localStorage.getItem('orders')||'[]');
+const div=document.getElementById('list');
+if(!data.length) div.innerHTML='<p>Dar nėra užsakymų.</p>';
+else data.forEach((o,i)=>{
+ let html=`<div style='border:1px solid #333;padding:10px;margin:10px 0;border-radius:8px'>
+<b>#${i+1}</b> • <i>${o.time}</i><br>
+<b>${o.name}</b> | ${o.email}<br>
+<b>${o.method}</b> | ${o.address||'-'} | ${o.date}<br>
+Komentaras: ${o.comment||'-'}<br>Prekės:<ul>`;
+ for(const [n,i2] of Object.entries(o.items))
+  html += `<li>${n} — ${i2.qty}vnt × ${i2.price}€</li>`;
+ html += `</ul><b>Iš viso:</b> ${o.total}</div>`;
+ div.innerHTML += html;
+});
+document.getElementById('clear').onclick=()=>{
+ if(confirm('Trinti visus?')){localStorage.removeItem('orders');location.reload();}
+};
+document.getElementById('export').onclick=()=>{
+ const d=JSON.parse(localStorage.getItem('orders')||'[]');
+ if(!d.length) return alert('Nėra duomenų');
+ let csv='Data;Vardas;El.paštas;Būdas;Adresas;Data;Komentaras;Suma\n';
+ d.forEach(o=>csv+=`"${o.time}";"${o.name}";"${o.email}";"${o.method}";"${o.address}";"${o.date}";"${o.comment}";"${o.total}"\n`);
+ const blob=new Blob([csv],{type:'text/csv'});
+ const a=document.createElement('a');
+ a.href=URL.createObjectURL(blob);
+ a.download='orders.csv';
+ a.click();
+};
+</script></body></html>
