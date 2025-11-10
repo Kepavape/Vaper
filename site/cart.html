@@ -11,49 +11,36 @@
     <div class='left'><div class='hamburger' id='hamburger'>☰</div><div class='brand'>Produktų katalogas</div></div>
     <div class='right'><a href='cart.html' class='cart-link'>🛍️<span id='cart-count'>0</span></a></div>
   </div>
-  <nav class='nav' id='nav'><a href="index.html">Pradžia</a> <a href="aromo-.html">Aromos</a> <a href="baze-.html">Bazės</a> <a href="buteliukai.html">Buteliukai</a> <a href="coilaiirkap-ule-.html">Coilai ir kapsulės</a> <a href="-hotai.html">Shotai</a> <a href="-ky-ciai.html">Skysčiai</a> <a href="irangairrinkiniai.html">Įranga ir rinkiniai</a></nav>
+  <nav class='nav' id='nav'><a href="index.html">Pradžia</a> <a href="aromo-.html">Aromos</a> <a href="baze-.html">Bazės</a> <a href="buteliukai.html">Buteliukai</a> <a href="coilaiirkap-ule-.html">Coilai ir kapsulės</a> <a href="-hotai.html">Shotai</a> <a href="-ky-ciai.html">Skysčiai</a> <a href="irangairrinkiniai.html">Įranga ir rinkiniai</a> <a href="cart.html">Krepšelis</a></nav>
 </header>
 <div class='container'>
 <h2>Krepšelis</h2>
 <div id='cart-items'></div>
 <div class='total'>Iš viso: <span id='total'>0.00 €</span></div>
-<div class='clear-btn'><button id='clear'>Išvalyti krepšelį</button></div>
-<div class='back-btn'><a href='index.html'>← Tęsti apsipirkimą</a></div>
+<form id='order-form' class='order-form'>
+  <label>Vardas ir el. paštas</label>
+  <input id='name' placeholder='Vardas Pavardė' required>
+  <input id='email' type='email' placeholder='el. paštas' required>
+  <label>Būdas</label>
+  <select id='method'><option>Atsiėmimas</option><option>Pristatymas</option></select>
+  <label>Adresas / vieta</label><input id='address' placeholder='Omniva / adresas'>
+  <label>Data</label><input id='date' type='date' min='2025-11-11' required>
+  <label>Komentaras</label><textarea id='comment' placeholder='Papildoma info'></textarea>
+  <button type='submit'>Pateikti užsakymą</button>
+</form>
 <script>
-(function() {
-  if (localStorage.getItem('access_granted') !== 'true') {
-    window.location.href = 'password.html';
-    return;
-  }
-  const cart = JSON.parse(localStorage.getItem('cart') || '{}');
-  const c = document.getElementById('cart-items');
-  let t = 0;
-  function render() {
-    c.innerHTML = ''; t = 0;
-    for (const [n, i] of Object.entries(cart)) {
-      const q = i.qty; const p = parseFloat(i.price) || 0; const b = parseFloat(i.bulk) || 0;
-      const f = (b && q >= 10) ? b : p; const s = f * q; t += s;
-      c.innerHTML += `<div class='cart-item'><img src='${i.img}' width='80'><div><h3>${n}</h3><p>${f} € × <input type='number' min='1' value='${q}' data-item='${n}'></p></div><strong>${s.toFixed(2)} €</strong></div>`;
-    }
-    document.getElementById('total').textContent = t.toFixed(2) + ' €';
-  }
-  render();
-  c.addEventListener('change', e => {
-    if (e.target.matches('input[type=number]')) {
-      const name = e.target.dataset.item;
-      const qty = parseInt(e.target.value) || 1;
-      cart[name].qty = qty;
-      localStorage.setItem('cart', JSON.stringify(cart));
-      render();
-    }
-  });
-  document.getElementById('clear').addEventListener('click', () => {
-    localStorage.removeItem('cart');
-    location.reload();
-  });
+(function(){
+const c=JSON.parse(localStorage.getItem('cart')||'{}'),el=document.getElementById('cart-items'),tot=document.getElementById('total');
+function render(){el.innerHTML='';let t=0;for(const[n,i]of Object.entries(c)){const q=i.qty,p=parseFloat(i.price)||0,b=parseFloat(i.bulk)||0,f=(b&&q>=10)?b:p,s=f*q;t+=s;el.innerHTML+=`<div>${n} — ${q}vnt × ${f}€ = ${s.toFixed(2)}€</div>`;}tot.textContent=t.toFixed(2)+' €';}render();
+document.getElementById('order-form').addEventListener('submit',e=>{
+e.preventDefault();
+if(Object.keys(c).length==0){alert('Krepšelis tuščias');return;}
+const order={time:new Date().toLocaleString(),name:name.value,email:email.value,method:method.value,address:address.value,date:date.value,comment:comment.value,items:c,total:tot.textContent};
+const orders=JSON.parse(localStorage.getItem('orders')||'[]');orders.push(order);localStorage.setItem('orders',JSON.stringify(orders));
+localStorage.removeItem('cart');alert('✅ Užsakymas pateiktas!');location.href='index.html';
+});
 })();
 </script>
-<div class='footer'>© Visos teisės saugomos</div></div>
+<div class='footer'>© 2025 Visos teisės saugomos</div></div>
 <script src='assets/shop.js'></script>
-</body>
-</html>
+</body></html>

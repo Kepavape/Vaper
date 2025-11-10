@@ -1,14 +1,12 @@
 
 const cart = JSON.parse(localStorage.getItem('cart') || '{}');
-
 function checkAccess() {
-  if (localStorage.getItem('access_granted') !== 'true') {
+  if (!location.pathname.endsWith('password.html') && localStorage.getItem('access_granted') !== 'true') {
     window.location.href = 'password.html';
   } else {
     document.body.style.display = 'block';
   }
 }
-
 function updateCartBadge() {
   let items = 0;
   for (const k in cart) items += cart[k].qty;
@@ -16,7 +14,6 @@ function updateCartBadge() {
   if (el) el.textContent = items;
   localStorage.setItem('cart', JSON.stringify(cart));
 }
-
 document.addEventListener('DOMContentLoaded', () => {
   checkAccess();
   updateCartBadge();
@@ -32,8 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
       cart[title].qty += qty;
       updateCartBadge();
     }
-    if (e.target.id === 'hamburger') {
-      document.getElementById('nav').classList.toggle('open');
-    }
+    if (e.target.id === 'hamburger') document.getElementById('nav').classList.toggle('open');
   });
 });
